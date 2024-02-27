@@ -1,0 +1,27 @@
+.zoom-effect {
+      transition: transform 0.3s ease; /* Add transition for smooth effect */
+    }
+    
+    .zoom-effect:hover {
+      transform: scale(1.05); /* Zoom in by 5% on hover */
+    }
+  
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Style the vertical scrollbar */
+    ::-webkit-scrollbar-thumb {
+      background-color: #ff0808; /* color of the scroll thumb */
+      border-radius: 10px; /* roundness of the scroll thumb */
+    }
+    
+    ::-webkit-scrollbar-track {
+      background-color: #f1f1f1; /* color of the scrollbar track */
+    }
+  
+    * {
+      scrollbar-width: thin;
+
+      scrollbar-color: #f06f6f #ffffff; /* thumb color track color */
+    }
