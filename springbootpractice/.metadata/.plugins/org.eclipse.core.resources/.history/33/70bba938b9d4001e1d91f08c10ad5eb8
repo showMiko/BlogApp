@@ -1,0 +1,79 @@
+package com.soumik.practice.springbootpractice.blog;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.soumik.practice.springbootpractice.user.User;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class BlogPost {
+	@GeneratedValue
+	@Id
+	private Integer id;
+	private String title;
+	private String category;
+	private String description;
+	private String imageurl;
+	
+	public String getImageurl() {
+		return imageurl;
+	}
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private User user;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getCategory() {
+		return Category;
+	}
+	public void setCategory(String category) {
+		Category = category;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	@Override
+	public String toString() {
+		return "BlogPost [id=" + id + ", title=" + title + ", Category=" + Category + ", description=" + description
+				+ ", imageurl=" + imageurl + ", user=" + user + "]";
+	}
+
+	public BlogPost() {
+		super();
+	}
+	public BlogPost(Integer id, String title, String category, String description, String imageurl, User user) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.category = category;
+		this.description = description;
+		this.imageurl = imageurl;
+		this.user = user;
+	}
+}

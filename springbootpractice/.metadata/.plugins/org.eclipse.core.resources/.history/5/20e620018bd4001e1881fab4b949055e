@@ -1,0 +1,9 @@
+package com.soumik.practice.springbootpractice.user;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.soumik.practice.springbootpractice.blog.BlogPost;
+
+public interface BlogRepo extends JpaRepository<BlogPost, Integer> {
+	
+}

@@ -1,0 +1,57 @@
+package com.soumik.practice.springbootpractice.user;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+@RestController
+public class UserResource {
+	UserRepository repo;
+
+	public UserResource(UserRepository repo) {
+		super();
+		this.repo = repo;
+	}
+	
+	@GetMapping("/")
+	public String rootPath()
+	{
+		return "Hello User";
+	}
+	@PostMapping("/users")
+	public User addAUser(@RequestBody User user)
+	{
+		repo.save(user);
+		System.out.print(user);
+		return user;
+	}
+	@GetMapping("/users/{email}")
+	public String getUserName(@PathVariable String email)
+	{
+		List<User> users=repo.findAll();
+		for(User currUser:users)
+		{
+			if(currUser.getEmail().equals(email))
+				return currUser.getUsername();
+//				return ResponseEntity.ok(currUser);
+		}
+		return "";
+
+	}
+	@GetMapping("/users/{email}/{password}")
+	public ResponseEntity<User> showAllusers(@PathVariable String email, @PathVariable String password)
+	{
+		List<User> users=repo.findAll();
+		for(User currUser:users)
+		{
+			if(currUser.getEmail().equals(email) && currUser.getPassword().equals(password))
+				return ResponseEntity.ok(currUser);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	}
+}

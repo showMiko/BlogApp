@@ -1,0 +1,9 @@
+Spring.jpa.defer-datasource-initialization=true
+spring.jpa.show-sql=true
+spring.security.user.name=practice
+spring.security.user.password=test123
+spring.datasource.url=jdbc:mysql://localhost:3307/practicedb
+spring.datasource.username=soumik
+spring.datasource.password=12345
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=update

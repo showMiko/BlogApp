@@ -1,0 +1,5 @@
+package com.soumik.practice.springbootpractice.basicAuth;
+
+public class BasicAuthentication {
+
+}

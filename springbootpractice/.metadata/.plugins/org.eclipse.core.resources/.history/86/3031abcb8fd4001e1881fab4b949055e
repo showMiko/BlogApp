@@ -1,0 +1,74 @@
+package com.soumik.practice.springbootpractice.user;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.soumik.practice.springbootpractice.blog.BlogPost;
+import com.soumik.practice.springbootpractice.blog.BlogRepo;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+@RestController
+public class UserResource {
+	UserRepository repo;
+	BlogRepo blog_repo;
+
+	public UserResource(UserRepository repo) {
+		super();
+		this.repo = repo;
+	}
+	
+	@GetMapping("/")
+	public String rootPath()
+	{
+		return "Hello User";
+	}
+	@PostMapping("/users")
+	public User addAUser(@RequestBody User user)
+	{
+		repo.save(user);
+		System.out.print(user);
+		return user;
+	}
+	@GetMapping("/users/{email}")
+	public String getUserName(@PathVariable String email)
+	{
+
+		User currUser=repo.findByEmail(email);
+		return currUser.getUsername(); 
+
+	}
+	@GetMapping("/users/{email}/{password}")
+	public ResponseEntity<User> showAllusers(@PathVariable String email, @PathVariable String password)
+	{
+		List<User> users=repo.findAll();
+		for(User currUser:users)
+		{
+			if(currUser.getEmail().equals(email) && currUser.getPassword().equals(password))
+				return ResponseEntity.ok(currUser);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	}
+	
+	@PostMapping("/users/{email}/blogs")
+	public BlogPost addBlog(@RequestBody BlogPost blog, @PathVariable String email)
+	{
+		User currUser=repo.findByEmail(email);
+		blog.setUser(currUser);
+		
+		blog_repo.save(blog);
+		return blog;
+	}
+	@GetMapping("/users/{email}/blogs")
+	public List<BlogPost> getAllPosts(@PathVariable String email)
+	{
+		User currUser=repo.findByEmail(email);
+		return currUser.getBlogPosts();
+	}
+}

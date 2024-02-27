@@ -1,0 +1,5 @@
+package com.soumik.practice.springbootpractice.user;
+
+public class UserResource {
+
+}
